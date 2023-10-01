@@ -3,6 +3,7 @@ import SignUp from './components/registerForm';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import {auth} from './firebaseConfig';
+import LoginForm from './components/LoginForm';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -45,7 +46,17 @@ test('allows user to sign up', async () => {
   expect(console.log).toHaveBeenCalledWith('User signed up successfully!');
 });
 
-
+test('Login test',() => {
+  render(
+    <Provider store={store}>
+      <LoginForm />
+    </Provider>
+  
+  );
+  const linkEle = screen.queryByText('Login');
+  expect(linkEle).toBeInTheDocument();
+  //userEvent.click(buttonEle);
+});
 
 
 
