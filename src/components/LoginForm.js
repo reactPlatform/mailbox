@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {signInWithEmailAndPassword} from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../redux/slices/authSlice';
 import {auth} from '../firebaseConfig';
@@ -18,23 +18,16 @@ import {
 export default function SignUp() {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const [confirmpass,setConfirmPass] = useState('');
   const dispatch = useDispatch();
   const history = useNavigate();
-  const handleSignup = async (e) => {
-    if(password == confirmpass){
+  const handleLogin = async (e) => {
+   
       e.preventDefault();
-      await createUserWithEmailAndPassword(auth,email,password).then((data)=>{
-        dispatch(authActions.setUser(data.user));
-        console.log('User signed up successfully!');
+      await signInWithEmailAndPassword(auth,email,password).then((data)=>{
+        dispatch(authActions.getUser(data.user));
+        console.log('User signed in successfully!');
         history('/home');
-      }).catch((err) => console.log(err));
-    }
-    else{
-      alert('Passwords Not Matched');
-    }
-    
-    
+      }).catch((err) => alert(err));
   }
   return (
     <Container>
@@ -44,7 +37,7 @@ export default function SignUp() {
           <Card className="shadow">
             <Card.Body>
               <div className="mb-3 mt-4">
-                <h2 className="fw-bold mb-2 text-uppercase">SignUp</h2>
+                <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                 <Form>
                   <Row className="mb-3">
                     <Form.Group
@@ -73,30 +66,19 @@ export default function SignUp() {
                       onChange={e => setPassword(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group
-                      
-                      className="mb-3"
-                      controlId="formBasicConfirmPassword"
-                    >
-                      <Form.Control type="password" 
-                      placeholder="Confirm Password"
-                      required
-                      value={confirmpass}
-                      onChange={e => setConfirmPass(e.target.value)} 
-                      />
-                    </Form.Group>
+                    
                   </Row>
                   <div className="d-grid">
-                    <Button variant="primary" type="submit" onClick={(e)=>handleSignup(e)}>
-                      Sign Up
+                    <Button variant="primary" type="submit" onClick={(e)=>handleLogin(e)}>
+                      Login
                     </Button>
                   </div>
                 </Form>
                 <div className="mt-3">
                   <p className="mb-0  text-center">
-                    Have an account?{" "}
+                    Don't have an account?{" "}
                     <a href="{''}" className="text-primary fw-bold">
-                      Login
+                      Sign Up
                     </a>
                   </p> 
                 </div>
