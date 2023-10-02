@@ -1,8 +1,10 @@
 import React from 'react'
-
+import ComposeEmail from './ComposeEmail'
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>Home
+      <ComposeEmail />
+    </div>
   )
 }
 
