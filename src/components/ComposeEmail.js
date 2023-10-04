@@ -36,18 +36,17 @@ const ComposeEmail = () => {
 
   const handleSendClick = (e) => {
     e.preventDefault();
-    dispatch(mailActions.addEmail({toAddress: to, fromAddress: user.email, subject, body}));    
+    const id = "mail_"+Math.floor(Math.random()*1000);
+    dispatch(mailActions.addEmail({toAddress: to, fromAddress: user.email, subject, body, isEmailRead: false, id}));    
     setTo('');
     setSubject('');
     setBody('');
   };
 
-  useEffect(() => {
-    dispatch(mailActions.getEmails());
-  },user)
+  
   return (
-    <Container >
-      <Row className="mt-4">
+    <Container style={{width:'1000px', backgroundColor:'white',height:'90vh'}}>
+      <Row className="mt-4" style={{position: 'relative',right: '10%'}}>
         <Col md={{ span: 6, offset: 3 }}>
           <Form style={{width:'150%'}}> 
             <Form.Group controlId="formTo" id='formto'>

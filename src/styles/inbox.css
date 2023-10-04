@@ -1,0 +1,20 @@
+.inboxContainer{
+    width: 80%;
+    background-color: white;
+}
+.inboxTable{
+    position: relative;
+    left: 13%;
+    top: 53px;
+    border: 1px solid black;
+    background: floralwhite;
+    padding: 10px;
+    border-radius: 5px;
+}
+#inboxTitle{
+    position: absolute;
+    right: 42%;
+    top: 3%;
+    font-weight: 600;
+    font-size: larger;
+}

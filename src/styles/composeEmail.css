@@ -1,3 +1,5 @@
+
+
 #formto{
     display: flex;
     align-items: center;
@@ -33,12 +35,12 @@
 #mailSendBtn{
     display: flex;
     padding: 3px 10px;
-    margin-top: -4.5%;
-    margin-left: 102px;
+    margin-top: -5%;
+    margin-left: 47px;
     border-radius: 0px;
 }
 #deleteCompose{
     position: absolute;
-    top: 53%;
-    right: 11%;
+    top: 89%;
+    right: 9%;
 }

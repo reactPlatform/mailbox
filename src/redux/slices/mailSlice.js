@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 //import { database } from "../../firebaseConfig";
 import { get, getDatabase, ref, set } from "firebase/database";
+import { useSelector } from "react-redux";
+
+
 const MailSlice = createSlice({
     name: 'emails',
     initialState:{
-        allEmails: []
+        userDetail: {},
+        allEmails: [],
+        inboxEmails: []
     },
     reducers: {
         addEmail(state,action){
@@ -13,9 +18,23 @@ const MailSlice = createSlice({
             addEmailInDatabase(state.allEmails);
         },
 
-        getEmails(state,action){
-           let allEmails =  getEmailsFromDatabase();
-           state.allEmails = allEmails;
+        updateEmails(state,action){
+            debugger
+           let allEmails =  action.payload;
+           state.allEmails  = allEmails ? allEmails : [];
+           state.inboxEmails = getInboxEmails(allEmails,state.userDetail.email);
+        },
+
+        updateUserDetails(state,action){
+            state.userDetail = action.payload
+        },
+
+        updateEmailDetails(state,action){
+            debugger
+            let id = action.payload;
+            let emailDetail = state.allEmails.find(email => email.id == id);
+            emailDetail.isEmailRead = true;
+            addEmailInDatabase(state.allEmails);
         }
     }
 })
@@ -28,11 +47,12 @@ export const addEmailInDatabase = (allEmails) => {
     set(ref(db, 'emails'), allEmails);
 }
 
-const getEmailsFromDatabase = () => {
-    const db = getDatabase();
 
-    const emails = [];
-    get(ref(db,'emails')).then((data) => console.log(data.val()))
+
+const getInboxEmails = (allEmails,email) => {
+    if(allEmails){
+        let inboxEmails = allEmails.filter(x => x.toAddress == email);
+        return inboxEmails
+    }
     
-    return emails
 }

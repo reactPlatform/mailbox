@@ -1,0 +1,24 @@
+#lefthomeContainer{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 36px 20px 10px 30px;
+    height: 100vh;
+}
+.emailImg{
+    width: 40%;
+    margin: 0px 0px 30px 20px;
+}
+#composeBtn{
+    margin-bottom: 50px;
+    background-color: #12b3e754;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: larger;
+}
+.mailBtn{
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: large;
+}
