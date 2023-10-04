@@ -22,3 +22,7 @@
     border-radius: 50%;
 
 }
+.deleteEmail{
+    position: absolute;
+    right: 9%;
+}

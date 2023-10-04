@@ -9,7 +9,8 @@ const MailSlice = createSlice({
     initialState:{
         userDetail: {},
         allEmails: [],
-        inboxEmails: []
+        inboxEmails: [],
+        trashEmails: []
     },
     reducers: {
         addEmail(state,action){
@@ -23,6 +24,7 @@ const MailSlice = createSlice({
            let allEmails =  action.payload;
            state.allEmails  = allEmails ? allEmails : [];
            state.inboxEmails = getInboxEmails(allEmails,state.userDetail.email);
+           state.trashEmails = getTrashEmails(allEmails,state.userDetail.email);
         },
 
         updateUserDetails(state,action){
@@ -30,10 +32,17 @@ const MailSlice = createSlice({
         },
 
         updateEmailDetails(state,action){
-            debugger
             let id = action.payload;
             let emailDetail = state.allEmails.find(email => email.id == id);
             emailDetail.isEmailRead = true;
+            addEmailInDatabase(state.allEmails);
+        },
+
+        deleteEmails(state,action){
+            debugger
+            let id = action.payload;
+            let deleteEmail = state.allEmails.find(email => email.id == id);
+            deleteEmail.isDeleted = true;
             addEmailInDatabase(state.allEmails);
         }
     }
@@ -51,8 +60,16 @@ export const addEmailInDatabase = (allEmails) => {
 
 const getInboxEmails = (allEmails,email) => {
     if(allEmails){
-        let inboxEmails = allEmails.filter(x => x.toAddress == email);
+        let inboxEmails = allEmails.filter(x => x.toAddress == email && x.isDeleted == false);
         return inboxEmails
     }
     
+}
+
+const getTrashEmails = (allEmails,email) => {
+    if(allEmails){
+        let trashEmails = allEmails.filter(x => x.toAddress == email && x.isDeleted == true);
+        return trashEmails
+    }
+    return [];
 }

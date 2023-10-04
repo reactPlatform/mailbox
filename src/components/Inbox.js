@@ -21,7 +21,7 @@ const Inbox = () => {
             })
         }
         
-      },[dispatch])
+      },[dispatch,inboxEmails])
   return (
     
     <div className='inboxContainer'>

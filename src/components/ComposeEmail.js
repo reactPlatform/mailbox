@@ -37,7 +37,7 @@ const ComposeEmail = () => {
   const handleSendClick = (e) => {
     e.preventDefault();
     const id = "mail_"+Math.floor(Math.random()*1000);
-    dispatch(mailActions.addEmail({toAddress: to, fromAddress: user.email, subject, body, isEmailRead: false, id}));    
+    dispatch(mailActions.addEmail({toAddress: to, fromAddress: user.email, subject, body, isEmailRead: false, id, isDeleted: false}));    
     setTo('');
     setSubject('');
     setBody('');

@@ -3,6 +3,7 @@ import ComposeEmail from './ComposeEmail'
 import '../styles/home.css'
 import maillogo from '../images/PngItem_1924154.png';
 import Inbox from './Inbox';
+import Trash from '../components/Trash';
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState('inbox');
   const SentComponent = () => <div>This is the Sent component.</div>;
@@ -15,6 +16,8 @@ const Home = () => {
         return <ComposeEmail />;
       case 'sent':
         return <SentComponent />;
+      case 'trash':
+        return <Trash />
       default:
         return null;
     }
@@ -30,6 +33,7 @@ const Home = () => {
         <button onClick={() => setSelectedButton('compose')} id='composeBtn'>Compose</button>
         <button onClick={() => setSelectedButton('inbox')} className='mailBtn'>Inbox</button>
         <button onClick={() => setSelectedButton('sent')} className='mailBtn'>Sent</button>
+        <button onClick={() => setSelectedButton('trash')} className='mailBtn'>Trash</button>
       </div>
 
       {/* Right side with content based on selected button */}
