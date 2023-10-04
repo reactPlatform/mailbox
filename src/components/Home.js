@@ -4,9 +4,9 @@ import '../styles/home.css'
 import maillogo from '../images/PngItem_1924154.png';
 import Inbox from './Inbox';
 import Trash from '../components/Trash';
+import SentEmail from './SentEmail';
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState('inbox');
-  const SentComponent = () => <div>This is the Sent component.</div>;
 
   const renderContent = () => {
     switch (selectedButton) {
@@ -15,7 +15,7 @@ const Home = () => {
       case 'compose':
         return <ComposeEmail />;
       case 'sent':
-        return <SentComponent />;
+        return <SentEmail />;
       case 'trash':
         return <Trash />
       default:

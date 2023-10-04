@@ -7,7 +7,7 @@ const Trash = () => {
     console.log(trashEmails);
     return (
         <div className='inboxContainer'>
-            <span id='inboxTitle'>Inbox</span>
+            <span id='inboxTitle'>Trash</span>
             <div className='inboxTable'>
                 {
                     trashEmails && trashEmails.map((email, index) => {

@@ -10,7 +10,8 @@ const MailSlice = createSlice({
         userDetail: {},
         allEmails: [],
         inboxEmails: [],
-        trashEmails: []
+        trashEmails: [],
+        sentEmails: []
     },
     reducers: {
         addEmail(state,action){
@@ -20,11 +21,11 @@ const MailSlice = createSlice({
         },
 
         updateEmails(state,action){
-            debugger
            let allEmails =  action.payload;
            state.allEmails  = allEmails ? allEmails : [];
            state.inboxEmails = getInboxEmails(allEmails,state.userDetail.email);
            state.trashEmails = getTrashEmails(allEmails,state.userDetail.email);
+           state.sentEmails = getSentEmails(allEmails,state.userDetail.email);
         },
 
         updateUserDetails(state,action){
@@ -39,12 +40,13 @@ const MailSlice = createSlice({
         },
 
         deleteEmails(state,action){
-            debugger
             let id = action.payload;
             let deleteEmail = state.allEmails.find(email => email.id == id);
             deleteEmail.isDeleted = true;
             addEmailInDatabase(state.allEmails);
         }
+
+        
     }
 })
 
@@ -72,4 +74,11 @@ const getTrashEmails = (allEmails,email) => {
         return trashEmails
     }
     return [];
+}
+
+const getSentEmails = (allEmails,email) => {
+    if(allEmails){
+        let sentEmails = allEmails.filter(x => x.fromAddress == email && x.isDeleted == false);
+        return sentEmails
+    }
 }
