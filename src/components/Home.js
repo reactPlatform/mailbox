@@ -5,9 +5,11 @@ import maillogo from '../images/PngItem_1924154.png';
 import Inbox from './Inbox';
 import Trash from '../components/Trash';
 import SentEmail from './SentEmail';
+import { useSelector } from 'react-redux';
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState('inbox');
-
+  let inboxEmails = useSelector(state => state.mail.inboxEmails);
+  inboxEmails = inboxEmails.filter(email => email.isEmailRead == false);
   const renderContent = () => {
     switch (selectedButton) {
       case 'inbox':
@@ -31,7 +33,7 @@ const Home = () => {
       <div id='lefthomeContainer'>
         <a href='/login'><img src={maillogo} className='emailImg'/></a>
         <button onClick={() => setSelectedButton('compose')} id='composeBtn'>Compose</button>
-        <button onClick={() => setSelectedButton('inbox')} className='mailBtn'>Inbox</button>
+        <button onClick={() => setSelectedButton('inbox')} className='mailBtn' style={{display:'flex',justifyContent:'space-evenly'}}>Inbox <span>{inboxEmails.length}</span></button>
         <button onClick={() => setSelectedButton('sent')} className='mailBtn'>Sent</button>
         <button onClick={() => setSelectedButton('trash')} className='mailBtn'>Trash</button>
       </div>

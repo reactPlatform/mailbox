@@ -12,9 +12,10 @@
     border-radius: 5px;
 }
 #inboxTitle{
-    position: absolute;
-    right: 42%;
-    top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
     font-weight: 600;
     font-size: larger;
 }

@@ -25,4 +25,5 @@
 .deleteEmail{
     position: absolute;
     right: 9%;
+    cursor: pointer;
 }
